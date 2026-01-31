@@ -18,6 +18,40 @@ BRD-2-SystemGenerator-python/
 └── requirements.txt
 ```
 
+## Architecture
+```mermaid
+flowchart LR
+  BRD[BRD Input] --> Parser[src/parser.py]
+  Parser --> Sections[Structured BRD Sections]
+  Sections --> Orchestrator[src/orchestrator.py]
+  Orchestrator --> Agents[src/agents.py]
+  Agents --> Artifacts[Draft Artifacts JSON]
+  Artifacts --> Guardrails[src/guardrails.py]
+  Guardrails --> Outputs[Validated Outputs]
+  Outputs --> CLI[src/cli.py]
+  Outputs --> UI[src/ui.py]
+```
+
+## Workflow
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant C as CLI/UI
+  participant P as Parser
+  participant O as Orchestrator
+  participant A as Agents
+  participant G as Guardrails
+  U->>C: Provide BRD
+  C->>P: Parse BRD
+  P-->>C: Structured sections
+  C->>O: Run pipeline
+  O->>A: Call generators
+  A-->>O: Draft artifacts
+  O->>G: Validate schemas
+  G-->>C: Valid outputs
+  C-->>U: Engineering plan + artifacts
+```
+
 ## Run
 ```
 python -m venv .venv
