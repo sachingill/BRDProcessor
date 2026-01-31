@@ -1,0 +1,26 @@
+{
+  "schema": "brd_sections_v1",
+  "sections": {
+    "problem": "Manual ticket triage is slow and inconsistent, causing delayed responses.",
+    "objectives": [
+      "Reduce time-to-acknowledge by 40%",
+      "Auto-route tickets by severity",
+      "Improve SLA compliance reporting"
+    ],
+    "functional_requirements": [
+      "Ingest tickets from email and web form",
+      "Classify issue type and severity",
+      "Route tickets to the correct queue"
+    ],
+    "non_functional_requirements": [
+      "99.9% uptime",
+      "Handle 1,000 tickets/day"
+    ],
+    "constraints": [
+      "Integrate with Zendesk",
+      "Deploy on AWS"
+    ],
+    "dependencies": [],
+    "assumptions": []
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "required": ["options", "recommendation"],
+  "properties": {
+    "options": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "stack", "pros", "cons", "fit_notes"],
+        "properties": {
+          "name": { "type": "string" },
+          "stack": {
+            "type": "object",
+            "required": ["frontend", "backend", "database", "infra", "observability"],
+            "properties": {
+              "frontend": { "type": "string" },
+              "backend": { "type": "string" },
+              "database": { "type": "string" },
+              "infra": { "type": "string" },
+              "observability": { "type": "string" }
+            }
+          },
+          "pros": { "type": "array", "items": { "type": "string" } },
+          "cons": { "type": "array", "items": { "type": "string" } },
+          "fit_notes": { "type": "string" }
+        }
+      }
+    },
+    "recommendation": { "type": "string" }
+  }
+}

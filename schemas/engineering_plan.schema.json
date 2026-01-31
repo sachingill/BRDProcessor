@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "required": ["project_overview", "phases", "team_composition", "risks", "assumptions"],
+  "properties": {
+    "project_overview": { "type": "string" },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "objectives", "key_deliverables", "dependencies", "acceptance_criteria"],
+        "properties": {
+          "name": { "type": "string" },
+          "objectives": { "type": "array", "items": { "type": "string" } },
+          "key_deliverables": { "type": "array", "items": { "type": "string" } },
+          "dependencies": { "type": "array", "items": { "type": "string" } },
+          "acceptance_criteria": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "team_composition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "count", "notes"],
+        "properties": {
+          "role": { "type": "string" },
+          "count": { "type": "number" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["risk", "impact", "mitigation"],
+        "properties": {
+          "risk": { "type": "string" },
+          "impact": { "type": "string" },
+          "mitigation": { "type": "string" }
+        }
+      }
+    },
+    "assumptions": { "type": "array", "items": { "type": "string" } }
+  }
+}

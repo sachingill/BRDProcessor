@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "required": ["summary", "components", "data_flows", "non_functional_considerations", "open_questions"],
+  "properties": {
+    "summary": { "type": "string" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "responsibility", "interfaces"],
+        "properties": {
+          "name": { "type": "string" },
+          "responsibility": { "type": "string" },
+          "interfaces": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "data_flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "description"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "non_functional_considerations": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } }
+  }
+}

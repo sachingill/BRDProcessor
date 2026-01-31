@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": [
+    "poc_goal",
+    "in_scope_components",
+    "out_of_scope",
+    "success_criteria",
+    "timeline_weeks",
+    "risks"
+  ],
+  "properties": {
+    "poc_goal": { "type": "string" },
+    "in_scope_components": { "type": "array", "items": { "type": "string" } },
+    "out_of_scope": { "type": "array", "items": { "type": "string" } },
+    "success_criteria": { "type": "array", "items": { "type": "string" } },
+    "timeline_weeks": { "type": "number" },
+    "risks": { "type": "array", "items": { "type": "string" } }
+  }
+}

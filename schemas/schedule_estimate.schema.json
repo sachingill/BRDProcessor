@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "required": ["timeline_weeks", "phases", "resource_matrix", "assumptions", "notes"],
+  "properties": {
+    "timeline_weeks": { "type": "number" },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "duration_weeks", "key_activities"],
+        "properties": {
+          "name": { "type": "string" },
+          "duration_weeks": { "type": "number" },
+          "key_activities": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "resource_matrix": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "count", "allocation_percent"],
+        "properties": {
+          "role": { "type": "string" },
+          "count": { "type": "number" },
+          "allocation_percent": { "type": "number" }
+        }
+      }
+    },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

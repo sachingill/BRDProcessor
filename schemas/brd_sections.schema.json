@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "required": ["schema", "sections"],
+  "properties": {
+    "schema": { "type": "string" },
+    "sections": {
+      "type": "object",
+      "required": [
+        "problem",
+        "objectives",
+        "functional_requirements",
+        "non_functional_requirements",
+        "constraints",
+        "dependencies",
+        "assumptions"
+      ],
+      "properties": {
+        "problem": { "type": "string" },
+        "objectives": { "type": "array", "items": { "type": "string" } },
+        "functional_requirements": { "type": "array", "items": { "type": "string" } },
+        "non_functional_requirements": { "type": "array", "items": { "type": "string" } },
+        "constraints": { "type": "array", "items": { "type": "string" } },
+        "dependencies": { "type": "array", "items": { "type": "string" } },
+        "assumptions": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
