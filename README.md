@@ -24,8 +24,17 @@ flowchart LR
   BRD[BRD Input] --> Parser[src/parser.py]
   Parser --> Sections[Structured BRD Sections]
   Sections --> Orchestrator[src/orchestrator.py]
-  Orchestrator --> Agents[src/agents.py]
-  Agents --> Artifacts[Draft Artifacts JSON]
+  Orchestrator --> Agents[LLM Agents]
+  Agents --> AgentPlan[Engineering Plan]
+  Agents --> AgentSchedule[Schedule Estimate]
+  Agents --> AgentPoc[POC Plan]
+  Agents --> AgentArch[Solution Architecture]
+  Agents --> AgentStack[Tech Stack Recs]
+  AgentPlan --> Artifacts[Draft Artifacts JSON]
+  AgentSchedule --> Artifacts
+  AgentPoc --> Artifacts
+  AgentArch --> Artifacts
+  AgentStack --> Artifacts
   Artifacts --> Guardrails[src/guardrails.py]
   Guardrails --> Outputs[Validated Outputs]
   Outputs --> CLI[src/cli.py]
@@ -39,14 +48,14 @@ sequenceDiagram
   participant C as CLI/UI
   participant P as Parser
   participant O as Orchestrator
-  participant A as Agents
+  participant A as Agent Pool
   participant G as Guardrails
   U->>C: Provide BRD
   C->>P: Parse BRD
   P-->>C: Structured sections
   C->>O: Run pipeline
-  O->>A: Call generators
-  A-->>O: Draft artifacts
+  O->>A: Dispatch generators
+  A-->>O: Plan, schedule, POC, arch, tech stack
   O->>G: Validate schemas
   G-->>C: Valid outputs
   C-->>U: Engineering plan + artifacts
