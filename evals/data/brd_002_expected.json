@@ -1,0 +1,12 @@
+{
+  "schema": "brd_sections_v1",
+  "sections": {
+    "problem": "Support team misses SLA targets because ticket triage is manual.",
+    "objectives": ["Cut mean time to respond", "Provide an audit trail"],
+    "functional_requirements": ["Ingest chat transcripts", "Auto-assign a ticket owner"],
+    "non_functional_requirements": ["99.9% uptime", "PII redaction"],
+    "constraints": ["Must use the existing CRM"],
+    "dependencies": ["Access to the ticket system API"],
+    "assumptions": ["Support team uses tags consistently"]
+  }
+}

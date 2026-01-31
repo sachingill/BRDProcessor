@@ -71,6 +71,27 @@ cp .env.example .env
 python src/cli.py --input ../BRD-2-SystemGenerator/brd_agent_em/sample_inputs/sample_brd.md
 ```
 
+## E2E Validation (CLI)
+Run the parser + pipeline checks over eval cases:
+```
+python evals/validate_e2e.py
+```
+
+Cycle the validator to stress test output consistency:
+```
+python evals/validate_e2e.py --cycles 10 --sleep-seconds 0.5
+```
+
+## MCP
+Expose the pipeline as MCP tools over stdio:
+```
+python scripts/mcp_server.py
+```
+
+Tools:
+- `parse_brd` for structured BRD sections
+- `generate_artifacts` for the full artifact pipeline
+
 ## System Prompt
 Set `SYSTEM_PROMPT` in `.env` to control the model's system instruction.
 

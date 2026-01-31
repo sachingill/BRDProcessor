@@ -19,4 +19,6 @@ python evals/eval_parser.py
 python evals/eval_parser_batch.py
 python evals/eval_schema.py
 python evals/eval_latency.py
+python evals/validate_e2e.py
+python evals/validate_e2e.py --cycles 5 --sleep-seconds 1
 ```

@@ -1,0 +1,12 @@
+{
+  "schema": "brd_sections_v1",
+  "sections": {
+    "problem": "Inventory counts are stale across locations.",
+    "objectives": ["Reduce count variance", "Provide nightly sync"],
+    "functional_requirements": ["Import supplier CSV", "Reconcile discrepancies"],
+    "non_functional_requirements": ["Process within 30 minutes"],
+    "constraints": ["Runs on the existing VM"],
+    "dependencies": ["SFTP access"],
+    "assumptions": ["Suppliers deliver daily"]
+  }
+}
