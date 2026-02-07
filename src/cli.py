@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.parser import parse_brd_text
-from src.orchestrator import run_pipeline
+from src.orchestrator import PipelineExecutionError, run_pipeline
 
 
 def main():
@@ -22,7 +22,11 @@ def main():
 
     text = Path(args.input).read_text(encoding="utf-8")
     brd_sections = parse_brd_text(text)
-    artifacts = run_pipeline(brd_sections)
+    try:
+        artifacts = run_pipeline(brd_sections)
+    except PipelineExecutionError as exc:
+        print(f"Pipeline failed: {exc}")
+        raise SystemExit(1) from exc
     Path(args.output).write_text(json.dumps(artifacts, indent=2), encoding="utf-8")
     print(f"Wrote output to {args.output}")
 

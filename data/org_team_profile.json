@@ -1,0 +1,32 @@
+{
+  "schema": "org_team_profile_v1",
+  "org_name": "Demo Engineering Org",
+  "team_strengths": {
+    "frontend": [
+      "React",
+      "TypeScript"
+    ],
+    "backend": [
+      "Python",
+      "FastAPI"
+    ],
+    "database": [
+      "PostgreSQL"
+    ],
+    "infra": [
+      "AWS"
+    ],
+    "observability": [
+      "CloudWatch",
+      "Sentry"
+    ]
+  },
+  "delivery_preferences": {
+    "prefer_speed_to_market": true,
+    "prefer_operational_simplicity": true
+  },
+  "notes": [
+    "Use this persisted profile as a first-order bias for stack recommendations.",
+    "Override only when BRD constraints clearly conflict."
+  ]
+}

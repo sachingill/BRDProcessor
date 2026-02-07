@@ -128,3 +128,9 @@ streamlit run src/ui.py
 
 ## Environment
 - `OPENAI_API_KEY` for live LLM calls.
+
+## Org/Team Strength Profile
+Tech stack recommendation now uses persisted org/team capabilities from:
+- `data/org_team_profile.json`
+
+Default dummy profile is biased to `Python` backend and `React` frontend.

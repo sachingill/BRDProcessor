@@ -11,7 +11,8 @@ from jsonschema import validate, ValidationError
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.orchestrator import run_pipeline
+from src.orchestrator import PipelineExecutionError, run_pipeline
+from src.org_team_profile import DEFAULT_PROFILE_PATH, load_org_team_profile
 from src.parser import parse_brd_text
 
 
@@ -22,10 +23,48 @@ st.set_page_config(page_title="BRD-to-Engineering (Python)", layout="wide")
 st.title("BRD-to-Engineering System Generator (Python)")
 st.caption("UI build: v2-debug-enabled")
 
+if "org_team_profile_editor" not in st.session_state:
+    st.session_state["org_team_profile_editor"] = ""
+if "org_team_profile_loaded" not in st.session_state:
+    st.session_state["org_team_profile_loaded"] = False
+
 with st.sidebar:
     st.header("Upload BRD")
     brd_file = st.file_uploader("BRD file (.md/.txt)", type=["md", "txt"])
     st.info("PDF parsing not enabled in the Python version yet.")
+    st.divider()
+    st.header("Org/Team Strengths")
+    if not st.session_state["org_team_profile_loaded"]:
+        try:
+            profile = load_org_team_profile()
+            st.session_state["org_team_profile_editor"] = json.dumps(profile, indent=2)
+            st.session_state["org_team_profile_loaded"] = True
+        except Exception as exc:
+            st.error(f"Could not load org/team profile: {exc}")
+    st.caption(f"Profile path: {DEFAULT_PROFILE_PATH}")
+    st.session_state["org_team_profile_editor"] = st.text_area(
+        "Edit persisted profile JSON",
+        value=st.session_state["org_team_profile_editor"],
+        height=260,
+        key="org_profile_editor_field",
+    )
+    if st.button("Save Strength Profile"):
+        try:
+            parsed_profile = json.loads(st.session_state["org_team_profile_editor"])
+            if not isinstance(parsed_profile, dict):
+                raise ValueError("Profile must be a JSON object.")
+            team_strengths = parsed_profile.get("team_strengths")
+            if not isinstance(team_strengths, dict):
+                raise ValueError("Profile requires 'team_strengths' object.")
+            DEFAULT_PROFILE_PATH.parent.mkdir(parents=True, exist_ok=True)
+            DEFAULT_PROFILE_PATH.write_text(
+                json.dumps(parsed_profile, indent=2),
+                encoding="utf-8",
+            )
+            st.success("Org/team profile saved.")
+        except Exception as exc:
+            st.error(f"Failed to save profile: {exc}")
+    st.caption("Tech stack recommendation uses this profile on each run.")
     process = st.button("Process")
 
 
@@ -156,7 +195,14 @@ if process:
         with st.spinner("Processing BRD and generating artifacts..."):
             raw_text = read_text(brd_file)
             brd_sections = parse_brd_text(raw_text)
-            artifacts = run_pipeline(brd_sections)
+            try:
+                artifacts = run_pipeline(brd_sections)
+            except PipelineExecutionError as exc:
+                st.session_state["brd_sections"] = brd_sections
+                st.session_state["artifacts"] = None
+                st.session_state["raw_text"] = raw_text
+                st.error(f"Pipeline failed: {exc}")
+                st.stop()
         st.session_state["brd_sections"] = brd_sections
         st.session_state["artifacts"] = artifacts
         st.session_state["raw_text"] = raw_text

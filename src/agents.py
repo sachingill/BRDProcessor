@@ -94,10 +94,11 @@ def poc_planner(architecture: dict) -> dict:
     return _chat(prompt, poc_fallback())
 
 
-def tech_stack_recommender(brd_sections: dict) -> dict:
+def tech_stack_recommender(brd_sections: dict, org_team_profile: dict) -> dict:
     template = _load_prompt("prompts/design/tech_stack_recommender.prompt.md")
     prompt = (
         f"{template}\n\n"
-        f"Input BRD sections: {json.dumps(brd_sections)}"
+        f"Input BRD sections: {json.dumps(brd_sections)}\n\n"
+        f"Input org/team profile: {json.dumps(org_team_profile)}"
     )
     return _chat(prompt, tech_stack_fallback())
